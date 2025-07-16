@@ -1,5 +1,6 @@
 package ke.co.tvnetapp
 
+import android.app.AlertDialog
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,6 +19,7 @@ class QrCodeFragment : Fragment() {
     private lateinit var qrCodeImage: ImageView
     private lateinit var connectionId: TextView
     private lateinit var refreshButton: Button
+    private var qrCodeGenerated = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_qr_code, container, false)
@@ -31,7 +33,22 @@ class QrCodeFragment : Fragment() {
         refreshButton = view.findViewById(R.id.btn_refresh_qr)
         
         refreshButton.setOnClickListener { generateQrCode() }
-        generateQrCode()
+        
+        if (!qrCodeGenerated) {
+            showQrCodePopup()
+        }
+    }
+
+    private fun showQrCodePopup() {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Get QR Code")
+            .setMessage("Generate QR code for device pairing?")
+            .setPositiveButton("Yes") { _, _ -> 
+                generateQrCode()
+                qrCodeGenerated = true
+            }
+            .setCancelable(false)
+            .show()
     }
 
     private fun generateQrCode() {
