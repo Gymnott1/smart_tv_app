@@ -4,6 +4,8 @@ A Kotlin Android TV app that serves as a comprehensive TV connection guide with 
 
 ## Features
 
+![](tv.png)
+
 ### 🎨 Design
 - **Dark Theme** with orange accent colors (#FF5500)
 - **Material Design** components optimized for TV
